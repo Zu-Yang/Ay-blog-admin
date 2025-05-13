@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x65e0; UI &#x6846;&#x67b6;&#x4f9d;&#x8d56;&#x7684; Vue3 &#x540e;&#x53f0;&#x7ba1;&#x7406;&#x6a21;&#x677f;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="无-ui-框架依赖的-vue3-后台管理模板">无 UI 框架依赖的 Vue3 后台管理模板</h1>
+<blockquote>
+<p>描述：无 UI 框架依赖，可以无缝接入自己喜欢的 UI 框架使用</p>
+</blockquote>
+<ul>
+<li>
+<p>当前项目要求已安装<code>18.0</code>或更高版本的<code>Node.js</code></p>
+</li>
+<li>
+<p>每个文件夹目录的<code>README.md</code>都带有具体的说明，<em>注意查看！</em> <em>注意查看！</em> <em>注意查看！</em></p>
+</li>
+<li>
+<p><code>vue2.x</code>之后<code>v2</code>分支停止维护，当前项目不再做对应的调整，分支版本依然保留使用</p>
+</li>
+<li>
+<p>因为项目工程的依赖包极少，所以可以随时升级某个依赖包，无需担心不匹配问题；同样，无论你是用<code>npm</code>、<code>pnpm</code>、<code>yarn</code>都是可以成功运行的。</p>
+</li>
+</ul>
+<p><a href="https://juejin.cn/post/7350874162011750400">稀土掘金详细介绍</a></p>
+<h2 id="版本及分支说明">版本及分支说明</h2>
+<table>
+<thead>
+<tr>
+<th>分支</th>
+<th>演示地址</th>
+<th>所用技术</th>
+<th>补充/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/Travis-hjs/vue-admin">master</a></td>
+<td><a href="https://travis-hjs.github.io/vue-admin">预览</a></td>
+<td>vite 5.x、vue 3.x、vue-router 4.x、typescript</td>
+<td>vue3 版本，无引用任何 UI 框架</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Travis-hjs/vue-admin/tree/el-plus">el-plus</a></td>
+<td><a href="https://travis-hjs.github.io/vue-admin-el">预览</a></td>
+<td>vite 5.x、vue 3.x、vue-router 4.x、typescript、element-plus</td>
+<td>基于<code>master</code>加入了 UI 框架的配置使用，并增加了 <a href="https://github.com/Travis-hjs/vue-admin/tree/el-plus/src/components/Curd">curd 低代码功能</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/Travis-hjs/vue-admin/tree/v2">v2</a></td>
+<td><a href="https://travis-hjs.github.io/vue2-admin">预览</a></td>
+<td>vue-cli 4.x 、vue 2.x、vue-router 3.x、typescript、element-ui</td>
+<td>vue2 版本，<code>element-ui</code>在这里默认作为常规功能展示引用，模板核心功能依然是无 UI 框架依赖</td>
+</tr>
+</tbody>
+</table>
+<h2 id="功能清单">功能清单</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述 &amp; 说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layout-核心布局</td>
+<td><a href="./src/layout/README.html">详细说明</a></td>
+</tr>
+<tr>
+<td>路由配置和权限使用</td>
+<td>当前有 <strong>静态</strong> 和 <strong>动态</strong> 路由两种配置，<a href="./src/router/REAMDE.html">详细说明</a></td>
+</tr>
+<tr>
+<td>http-网络请求</td>
+<td>直接使用原生封装的一个工具函数，<a href="./src/api/README.html">详细说明</a></td>
+</tr>
+<tr>
+<td>状态管理</td>
+<td>自行设计的一套管理方式，不限框架使用，<a href="./src/store/README.html">详细说明</a></td>
+</tr>
+<tr>
+<td>svg-图标</td>
+<td>自行写的一套图标加载方式，可以更好地控制打包后的体积，<a href="./src/icons/README.html">详细说明</a></td>
+</tr>
+<tr>
+<td>常用工具函数</td>
+<td>在 <a href="src/utils/index.ts">src/utils/index.ts</a> 中内置了一些使用频率极高的工具函数：类型判断、日期格式化、文本复制、深拷贝等。</td>
+</tr>
+</tbody>
+</table>
+<p>当前模板只提供必需的功能，功能模块之间尽可能保证低耦合性，这对所有开发者都是一件非常有利的事情，例如你无需担心替换、修改某一功能时影响到其他。另外更为重要的是：当前所有已实现功能都不依赖任何第三方库（<code>vue-router</code>除外），这意味着你可以无需关心<code>package.json</code>的依赖版本，因为根本就没有其他依赖，所以根据自己的喜好去引入第三方库的时候会非常舒服。</p>
+<p>像前端工程化配置<code>ESLint</code>、<code>StyleLint</code>、<code>git-husky</code>等这类开发约束工具这里一律不使用，理由有以下几点：</p>
+<ul>
+<li>
+<p>规则的东西不适用作为通用型项目，因为有很多自由开发者、初学者、后端开发者等，他们在使用时并不需要，这些工具只会使其在初次接触中变得束手无策，所以这违背了我写这个项目的初衷。</p>
+</li>
+<li>
+<p>其次就是这些约束工具对开发效率的提升通常为 <strong>0</strong>，因为在提交代码的时候需要进行全局检查或者对部分文件检查，所以要花费大量的时间去干等；另外<code>ESlint</code>这个东西在实际的开发场景中，并不能有效地提高代码质量，因为爱写垃圾的人不管用什么工具都始终会写垃圾代码，有了这些工具只不过是让写出来的垃圾代码变得好看而已，而且在<code>ts</code>中，只要不是写的过多<code>any</code>，基本都有语法和写法的报错检查，所以<code>ESlint</code>的作用就显得很鸡肋，在过去<code>js</code>项目中或许有用，但在<code>ts</code>中真的可有可无，不如来一个<code>Prettier</code>代码格式化工具来得实际。</p>
+</li>
+<li>
+<p>代码约束的工具运行时会消耗过大的内存，在一些电脑性能不那么高的设备上会非常卡顿，这使得开发过程十分笨重。更重要的是，有时候过多的工具检测报错会导致进程崩溃，尽管你的代码可以正常运行。</p>
+</li>
+</ul>
+<h2 id="项目运行">项目运行</h2>
+<p><strong>Tips：</strong> 在<code>package.json</code>中，<code>vue-tsc</code>不是必需的，需要提高构建速度可以自行卸载该依赖，并在构建命令中删除对应<code>vue-tsc --noEmit &amp;&amp;</code>代码。但不建议这样做，因为在开发时会失去<code>ts</code>的全局代码检查。在官方的默认脚手架中，<code>tsc</code>是放在<code>build</code>中运行，这样的操作其实非常不利于排查问题，如果项目是放在远程或者其他服务器中进行构建，那么在<code>build</code>的过程中因为类型校验而不通过，对开发者来说，通过日志去排查问题的方式非常耗时，所以将<code>tsc</code>放在开发环境中才是比较合理的。</p>
+<pre><code class="language-bash"><span class="hljs-comment">#安装依赖</span>
+npm install
+
+<span class="hljs-comment"># 运行项目</span>
+npm run dev
+
+<span class="hljs-comment"># 构建项目</span>
+npm run build
+</code></pre>
+
+            
+            
+        </body>
+        </html>
