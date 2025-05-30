@@ -109,16 +109,19 @@ export const dynamicRouters: Array<RouteItem> = [
   {
     path: "/blog",
     name: "blog",
+    redirect: "/blog/article-manage",
     component: Layout,
     meta: { title: "A'yang Blog", icon: "blog", auth: [0] },
     children: [
+      // {
+      //   path: "/blog/article-post",
+      //   name: "article-post",
+      //   meta: { title: "发博文", icon: "post" },
+      //   component: () => import("@/views/blog/article-post/index.vue")
+      // },
       {
-        path: "/article-post",
-        meta: { title: "发博文", icon: "post" },
-        component: () => import("@/views/blog/article-post/index.vue")
-      },
-      {
-        path: "/article-manage",
+        path: "/blog/article-manage",
+        name: "article-manage",
         meta: { title: "博文管理", icon: "list" },
         component: () => import("@/views/blog/article-manage/index.vue")
       },

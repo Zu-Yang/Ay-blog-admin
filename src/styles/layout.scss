@@ -100,6 +100,7 @@
   background-color: var(--whole-bg-color);
   padding-left: var(--sidebar-width);
   transition: var(--transition);
+  scroll-behavior: smooth; // 平滑滚动(使用场景:锚点)
 }
 
 .the-layout.full-header {

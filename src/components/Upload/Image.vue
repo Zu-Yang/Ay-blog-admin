@@ -6,7 +6,7 @@ export default {
 </script>
 <script lang="ts" setup>
 import { type PropType, ref } from "vue";
-import { uploadImage, deleteImage } from "@/api/common";
+import { uploadImage, deleteImage } from "@/api/blog";
 import { message } from "@/utils/message";
 import type { UploadChange } from "./index";
 
@@ -14,53 +14,53 @@ const props = defineProps({
   /** 组件上传图片路径 */
   src: {
     type: String,
-    default: ""
+    default: "",
   },
   /** 上传组件`id` */
   uploadId: {
     type: [String, Number] as PropType<UploadChange["id"]>,
-    default: ""
+    default: "",
   },
   /** 图片宽度 */
   width: {
     type: String,
-    default: "178px"
+    default: "178px",
   },
   /** 图片高度 */
   height: {
     type: String,
-    default: "178px"
+    default: "178px",
   },
   /** 是否自动高度（针对图片） */
   autoHeight: {
     type: Boolean,
-    default: false
+    default: false,
   },
   /** 图片上传提示 */
   tip: {
     type: [String, Number],
-    default: ""
+    default: "",
   },
   /** 上传图片最大体积（M） */
   maxSize: {
     type: Number,
-    default: 5
+    default: 5,
   },
   /** 是否禁用状态 */
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   /** 删除回调 */
   remove: {
     type: Function,
-    default: () => { }
-  }
+    default: () => {},
+  },
 });
 
 const emit = defineEmits<{
-  (event: "change", res: UploadChange<any>): void
-  (event: "remove", res: string | number): void
+  (event: "change", res: UploadChange<any>): void;
+  (event: "remove", res: string | number): void;
 }>();
 
 /** 上传组件`input`节点 */
@@ -85,14 +85,14 @@ async function onUpload() {
   formData.append("file", file);
 
   loading.value = true;
-  const res = await uploadImage(formData)
+  const res = await uploadImage(formData);
   loading.value = false;
   console.log("上传图片 >>", res);
   if (res.code === 200) {
     const image: string = res.data.image;
     emit("change", {
       id: props.uploadId,
-      src: image
+      src: image,
     });
   }
 }
@@ -107,15 +107,26 @@ function removeImg() {
   <div class="the-upload-image">
     <div class="the-upload-content" :style="{ width: width }">
       <div v-if="src" class="the-upload-image-box">
-        <img class="image" :src="src" :style="{ height: autoHeight ? undefined : height }" />
+        <img
+          class="image"
+          :src="src"
+          :style="{ height: autoHeight ? undefined : height }"
+        />
         <div class="remove fvc">
           <svg-icon v-if="!disabled" name="delete" @click="removeImg()" />
         </div>
       </div>
       <div v-else class="the-upload-box fvc" :style="{ height: height }">
         <div class="the-upload-add-icon"></div>
-        <input v-if="!disabled" class="the-upload-input" type="file" accept="image/*" name="picture" ref="uploadInput"
-          @change.stop="onUpload()" />
+        <input
+          v-if="!disabled"
+          class="the-upload-input"
+          type="file"
+          accept="image/*"
+          name="picture"
+          ref="uploadInput"
+          @change.stop="onUpload()"
+        />
       </div>
     </div>
     <!-- <p class="the-upload-tip" v-if="tip">{{ loading ? "上传中..." : tip }}</p> -->
@@ -147,7 +158,7 @@ function removeImg() {
       .image {
         display: block;
         width: 100%;
-        object-fit: fill;
+        object-fit: cover;
       }
 
       .remove {

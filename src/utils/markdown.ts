@@ -57,7 +57,7 @@ export default config({
             ...item,
             options: {
               ...item.options,
-              enabled: true, // 可切换状态的任务列表
+              enabled: false, // 是否可切换状态的任务列表
               // 如果只是想对某个编辑器开启这个功能
               // enabled: editorId === 'myId'
             }

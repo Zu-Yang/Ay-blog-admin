@@ -15,11 +15,13 @@ declare module '*.md' {
 declare namespace NodeJS {
   type Timeout = number // 尝试修改 setTimeout | setInterval 的返回类型为 number;
 }
+
 declare module 'uslug';
 declare module 'markdown-it-mark';
 declare module 'markdown-it-attrs';
 declare module 'markdown-it-link-attributes';
 declare module 'node-html-parser';
+
 // declare module "timers" {
 //   global {
 //     // namespace NodeJS {

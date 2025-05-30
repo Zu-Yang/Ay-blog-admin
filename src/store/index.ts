@@ -4,9 +4,9 @@ import ModuleLayout from "./Layout";
 import ModuleGoods from "./Goods";
 
 class ModuleStore {
-  // constructor() {
-  //   console.log("%c ModuleStore init", "color: #409EFF");
-  // }
+  constructor() {
+    console.log("%c ModuleStore init", "color: #409EFF");
+  }
 
   /** 项目信息 */
   readonly projectInfo = {
@@ -27,13 +27,15 @@ class ModuleStore {
   // 操作为：没有读取该模块时，不实例化该状态
   private _goods!: ModuleGoods;
 
+
+
   get goods() {
     if (!this._goods) {
       this._goods = new ModuleGoods();
     }
     return this._goods;
   }
-  
+
 }
 
 /**

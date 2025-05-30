@@ -4,7 +4,7 @@ import { Scrollbar } from "@/components/Scrollbar";
 import { UploadImage, type UploadChange } from "@/components/Upload";
 import { CollapseHeight } from "@/components/CollapseHeight";
 import { type Message, message, messageBox } from "@/utils/message";
-import { uploadImage, deleteImage } from "@/api/common";
+import { uploadImage, deleteImage } from "@/api/blog";
 
 const formData = reactive({
   banner: "",

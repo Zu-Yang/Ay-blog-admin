@@ -58,10 +58,10 @@ type ValueOf<T> = T[keyof T];
  */
 type NestedKeyOf<T extends object> = {
   [K in keyof T & (string | number)]: T[K] extends Array<any>
-    ? never // 排除数组类型
-    : T[K] extends object
-      ? `${K}` | `${K}.${NestedKeyOf<T[K]>}`
-      : `${K}`;
+  ? never // 排除数组类型
+  : T[K] extends object
+  ? `${K}` | `${K}.${NestedKeyOf<T[K]>}`
+  : `${K}`;
 }[keyof T & (string | number)];
 
 /** 运算符号 */
@@ -98,7 +98,7 @@ interface AjaxParams {
   /** 请求路径 */
   url: string
   /** 请求方法 */
-  method: "GET" | "POST" | "PUT" | "DELETE"
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   /**
    * 传参对象
    * 

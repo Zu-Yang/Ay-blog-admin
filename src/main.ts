@@ -3,12 +3,15 @@ import App from "./App.vue";
 import SvgIcon from "./icons";
 import BaseDialog from "./components/base-dialog";
 import router from "./router";
+import { createPinia } from 'pinia'
 import { version } from "../package.json";
 import { copyDirective, rippleDirective } from "./utils/directive";
 import "./utils/markdown";
 import './styles/tailwind.css';
 import "./styles/index.scss";
 import "./styles/layout.scss";
+import "md-editor-v3/lib/style.css";
+import "@vavt/v3-extension/lib/asset/style.css";
 
 window.version = version;
 
@@ -26,6 +29,7 @@ app.component("svg-icon", SvgIcon);
 app.component("base-dialog", BaseDialog);
 
 app.use(router);
+app.use(createPinia())
 
 app.mount("#app");
 

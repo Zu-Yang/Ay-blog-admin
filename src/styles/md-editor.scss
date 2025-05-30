@@ -47,3 +47,9 @@
     width: 16px;
   }
 }
+
+.md-editor-modal-container {
+  .md-editor-modal-mask {
+    backdrop-filter: blur(8px);
+  }
+}
