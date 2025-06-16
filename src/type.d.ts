@@ -160,7 +160,7 @@ declare namespace Api {
 
   /** 接口请求基础响应数据 */
   interface Result<T = any> {
-    /** 接口状态`code === 1`为成功 */
+    /** 接口状态`code === 200`为成功 */
     code: number
     /** 接口响应数据 */
     data: T

@@ -1,5 +1,32 @@
 import request from "../utils/request";
-import type { BlogUpload, BlogList } from "./blogType.d.ts";
+import type { Article, getArticle, getComment, createComment, delComment } from "./blogType.d.ts";
+
+/**
+ * 删除评论
+ * @param params 删除评论所需参数
+ * @returns
+ */
+export function delComment(params: delComment) {
+  return request("DELETE", "/api/comment/delete", params);
+}
+
+/**
+ * 新增评论
+ * @param params 新增评论所需参数
+ * @returns
+ */
+export function addComment(params: createComment) {
+  return request("POST", "/api/comment/add", params);
+}
+
+/**
+ * 获取评论
+ * @param params 获取评论所需参数
+ * @returns
+ */
+export function getComment(params: getComment) {
+  return request("GET", "/api/comment/list", params);
+}
 
 /**
  * 获取分类
@@ -19,28 +46,38 @@ export function getTag() {
 
 /**
  * 发布文章
- * @param params 文章信息
+ * @param params 文章发布所需参数
  * @returns
  */
-export function addArticles(params: BlogUpload) {
+export function addArticles(params: Article) {
   return request("POST", "/api/article/addArticles", params);
 }
+
 /**
- * 发布文章
- * @param params 文章信息
+ * 更新文章
+ * @param params 文章更新所需参数
  * @returns
  */
-export function updateArticle(params: BlogUpload) {
+export function updateArticle(params: Article) {
   return request("PATCH", "/api/article/updateArticle", params);
 }
 
 /**
  * 获取列表
- * @param params 文章信息
+ * @param params 获取文章所需参数
  * @returns
  */
-export function getArticles(params: BlogList) {
+export function getArticles(params: getArticle) {
   return request("GET", "/api/article/list", params);
+}
+
+/**
+ * 获取IP定位
+ * @param ip ip地址
+ * @returns Promise<Api.Result>
+ */
+export function getLocal(ip: string) {
+  return request("GET", `/api/local/getLocal?ip=${ip}`);
 }
 
 /**
@@ -66,8 +103,16 @@ export function uploadImage(formData: FormData) {
 
 /**
  * 删除图片
- * @param images images: string[ ] 图片地址
+ * @param {string[]} images 图片地址
  */
 export function deleteImage(images: string[]) {
   return request("DELETE", "/api/minio/delImage", { images });
+}
+
+/**
+ * 删除文章
+ * @param {number} id 文章id
+ */
+export function deleteArticle(id: number) {
+  return request("DELETE", "/api/article/deleteArticle", { id });
 }

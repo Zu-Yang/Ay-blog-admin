@@ -244,3 +244,16 @@ export function isMobile() {
   const pattern = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i;
   return pattern.test(navigator.userAgent);
 }
+
+/**
+ * 获取文件的`base64`
+ * @param file 文件
+ */
+export function getBase64(file: File) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
