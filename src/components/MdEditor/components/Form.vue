@@ -15,26 +15,25 @@
       </div>
       <div class="md-editor-form-item flex items-center">
         <label class="md-editor-label">是否置顶</label>
-        <select class="md-editor-input flex-1" :disabled="isSave" name="top" id="top" v-model="formData.top">
-          <option :value="top.value" v-for="top in formOption.topList" :key="top.value">
+        <select class="md-editor-input flex-1" :disabled="isSave" v-model.number="formData.top">
+          <option v-for="top in formOption.topList" :value="top.value">
             {{ top.label }}
           </option>
         </select>
       </div>
       <div class="md-editor-form-item flex items-center">
         <label class="md-editor-label">文章标签</label>
-        <select class="md-editor-input flex-1" :disabled="isSave" name="tag" id="tag" v-model="formData.tagId">
-          <option v-for="tag in formOption.tagList" :key="tag.value" :value="tag.value">
-            {{ tag.value ? tag.label : "请选择标签" }}
+        <select class="md-editor-input flex-1" :disabled="isSave" v-model.number="formData.tagId">
+          <option v-for="tag in formOption.tagList" :value="tag.value">
+            {{ tag.label }}
           </option>
         </select>
       </div>
       <div class="md-editor-form-item flex items-center">
         <label class="md-editor-label">文章分类</label>
-        <select class="md-editor-input flex-1" :disabled="isSave" name="category" id="category"
-          v-model="formData.cateId">
-          <option v-for="cate in formOption.categoryList" :key="cate.value" :value="cate.value">
-            {{ cate.value ? cate.label : "请选择分类" }}
+        <select class="md-editor-input flex-1" :disabled="isSave" v-model.number="formData.cateId">
+          <option v-for="cate in formOption.categoryList" :value="cate.value">
+            {{ cate.label }}
           </option>
         </select>
       </div>
@@ -81,8 +80,6 @@ import { PlusOutlined } from '@ant-design/icons-vue';
 import { getBase64 } from '@/utils/index';
 import { useEncodeEmoji } from '@/utils/comment';
 
-const VITE_API_URL = import.meta.env.VITE_API_URL;
-
 const store = useArticle()
 
 const props = defineProps({
@@ -98,13 +95,13 @@ const props = defineProps({
     type: Object,
     default: () => {
       return {
-        id: null,
+        id: "",
         title: "",
         summary: "",
         content: "",
-        cateId: "",
-        tagId: "",
-        top: "0",
+        cateId: "", // 默认值与类型保持一致
+        tagId: "", // 默认值与类型保持一致
+        top: "", // 默认值与类型保持一致
         cover: [],
         cateInfo: [],
         tagInfo: [],
@@ -112,6 +109,7 @@ const props = defineProps({
     },
   },
 });
+
 
 const textareaNode = ref(); // 文章内容textarea节点
 const isSave = ref(false); // 是否正在保存编辑
@@ -126,16 +124,17 @@ const state = reactive({
   showAdjust: true, // 是否显示全屏按钮
 });
 
+// props.data初始化时,某些值可能变为null
 const formData = reactive<UpdateBlog>({
-  id: props.data.id, // 文章ID
-  title: props.data.title, // 文章标题
-  content: props.content, // 文章内容
-  html: props.html, // 文章HTML
-  summary: props.data.summary, // 文章摘要
-  cover: props.data.cover, // 封面图
-  top: props.data.top, // 0:非置顶, 1:置顶
-  tagId: props.data.tagId, // 标签id
-  cateId: props.data.cateId, // 分类id
+  id: props.data.id || "", // 文章ID
+  title: props.data.title || "", // 文章标题
+  content: props.content || "", // 文章内容
+  html: props.html || "", // 文章HTML
+  summary: props.data.summary || "", // 文章摘要
+  cover: props.data.cover || [], // 封面图
+  top: props.data.top || "", // 0:非置顶, 1:置顶
+  tagId: props.data.tagId || "", // 标签id
+  cateId: props.data.cateId || "", // 分类id
 });
 
 const formOption = reactive({
@@ -163,14 +162,17 @@ const previewImage = ref('');
 const previewTitle = ref('');
 const softDeleteList = ref<any[]>([]);
 const fileList = ref<any[]>([]);
-props.data.cover.forEach((item: any, index: number) => {
-  fileList.value.push({
-    uid: `vc-done-${index}`,
-    name: '',
-    status: 'done', // done、uploading、error
-    url: item,
-  });
-})
+
+if (props.data.cover.length) {
+  props.data.cover.forEach((item: any, index: number) => {
+    fileList.value.push({
+      uid: `vc-done-${index}`,
+      status: 'done', // done、uploading、error
+      url: item,
+    });
+  })
+}
+
 const progress: UploadProps['progress'] = {
   strokeColor: {
     '0%': '#108ee9',
@@ -180,7 +182,6 @@ const progress: UploadProps['progress'] = {
   format: (percent?: number) => percent ? `${parseFloat(percent.toFixed(2))}%` : '0%',
   class: 'progress', // 进度条的样式名称
 };
-
 /**
  * 监听文章内容变化
  */
@@ -240,7 +241,7 @@ const beforeUpload = (file: any) => {
   return false;
 };
 
-/** 
+/**
  * 封面图处理
  * @returns `string[]`
  */
@@ -325,11 +326,10 @@ const reset = (data: any) => {
     cateId: "",
     tagId: "",
     top: "0",
-    cover: [],
+    cover: ""
   });
   store.$patch({
     showEdit: false,
-    // modalType: "",
     // 属性与TableDataType一致
     modifiedData: {
       id: data.article_id,
@@ -379,19 +379,22 @@ const submitEdit = async () => {
   } else if (cateId === "") {
     message.error("请选择文章分类");
     return;
-  } else if (!fileList.value.length) {
-    message.error("请上传文章封面图");
-    return;
+  // } else if (!fileList.value.length) {
+  //   message.error("请上传文章封面图");
+  //   return;
   }
 
   isSave.value = true;
 
-  const coverMap = await handleCover()
-  // 检查coverMap是否有数据
-  if (!coverMap || coverMap.length === 0) {
-    message.error("封面图处理失败，请重新上传");
-    isSave.value = false;
-    return;
+  // 封面图上传
+  let coverMap = <string[]>[];
+  if (fileList.value.length) {
+    coverMap = await handleCover()
+    if (!coverMap || coverMap.length === 0) {
+      message.error("封面图处理失败，请重新上传");
+      isSave.value = false;
+      return;
+    }
   }
 
   const params = {
@@ -403,7 +406,7 @@ const submitEdit = async () => {
     article_summary: summary.trim(),
     article_content: useEncodeEmoji(content.trim()),
     article_html: html.trim(),
-    article_cover: coverMap,
+    article_cover: JSON.stringify(coverMap),
   };
 
   // console.log(params);
@@ -442,18 +445,21 @@ const submitAdd = async () => {
   } else if (cateId === "") {
     message.error("请选择文章分类");
     return;
-  } else if (!fileList.value.length) {
-    message.error("请上传文章封面图");
-    return;
+  // } else if (!fileList.value.length) {
+  //   message.error("请上传文章封面图");
+  //   return;
   }
   isSave.value = true;
 
-  const coverMap = await handleCover()
-  // 检查coverMap是否有数据
-  if (!coverMap || coverMap.length === 0) {
-    message.error("封面图处理失败，请重新上传");
-    isSave.value = false;
-    return;
+   // 封面图上传
+   let coverMap = <string[]>[];
+  if (fileList.value.length) {
+    coverMap = await handleCover()
+    if (!coverMap || coverMap.length === 0) {
+      message.error("封面图处理失败，请重新上传");
+      isSave.value = false;
+      return;
+    }
   }
 
 
@@ -465,7 +471,7 @@ const submitAdd = async () => {
     article_summary: summary.trim(),
     article_content: useEncodeEmoji(content.trim()),
     article_html: html.trim(),
-    article_cover: coverMap,
+    article_cover: JSON.stringify(coverMap),
   };
   // console.log(params);
   // return;

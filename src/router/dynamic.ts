@@ -113,17 +113,32 @@ export const dynamicRouters: Array<RouteItem> = [
     component: Layout,
     meta: { title: "A'yang Blog", icon: "blog", auth: [0] },
     children: [
-      // {
-      //   path: "/blog/article-post",
-      //   name: "article-post",
-      //   meta: { title: "发博文", icon: "post" },
-      //   component: () => import("@/views/blog/article-post/index.vue")
-      // },
       {
         path: "/blog/article-manage",
         name: "article-manage",
-        meta: { title: "博文管理", icon: "list" },
+        meta: { title: "博文管理", icon: "blog" },
         component: () => import("@/views/blog/article-manage/index.vue")
+      },
+    ]
+  },
+  {
+    path: "/qiniu",
+    name: "qiniu",
+    redirect: "/qiniu/upload-cloud-image",
+    component: Layout,
+    meta: { title: "七牛云图床", icon: "qiniu", auth: [0] },
+    children: [
+      {
+        path: "/qiniu/upload-cloud-image",
+        name: "upload-cloud-image",
+        meta: { title: "上传云图床", icon: "upload" },
+        component: () => import("@/views/qiniu/upload-cloud-image/index.vue")
+      },
+      {
+        path: "/qiniu/cloud-image-list",
+        name: "cloud-image-list",
+        meta: { title: "云图列表", icon: "image" },
+        component: () => import("@/views/qiniu/cloud-image-list/index.vue")
       },
     ]
   },

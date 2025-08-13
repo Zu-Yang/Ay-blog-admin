@@ -83,7 +83,7 @@ export interface Article {
   /** 内容 */
   article_content: string
   /** 图片 */
-  article_cover: string[]
+  article_cover: string
   /** 摘要 */
   article_summary: string
   /** 置顶 */
@@ -137,7 +137,7 @@ export interface TableDataType {
   /** 标签ID */
   tagId: number
   /** 封面图 */
-  cover: string[]
+  cover: string
   /** 评论列表 */
   commentList: any[]
   /** 父评论数 */
@@ -157,7 +157,7 @@ export interface CreateBlog {
   /** html */
   html: string
   /** 图片 */
-  cover: string[]
+  cover: string
   /** 摘要 */
   summary: string
   /** 置顶 */
@@ -178,7 +178,7 @@ export interface UpdateBlog {
   /** html */
   html: string
   /** 图片 */
-  cover: string[]
+  cover: string
   /** 摘要 */
   summary: string
   /** 置顶 */

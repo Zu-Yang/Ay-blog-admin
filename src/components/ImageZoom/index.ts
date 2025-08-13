@@ -1,0 +1,1 @@
+export { default as ImageZoom } from "./index.vue";

@@ -1,36 +1,17 @@
 <template>
-  <MdEditor
-    ref="editorRef"
-    v-model="state.content"
-    showCodeRowNumber
-    autoDetectCode
-    :editorId="state.editorId"
-    :toolbars="state.toolbars"
-    :inputBoxWitdh="state.inputBoxWitdh"
-    :footers="state.footers"
-    :mdHeadingId="mdHeadingId"
-    @onUploadImg="onUploadImg"
-    @onSave="onSave"
-    @onChange="onChange"
-    @onHtmlChanged="onHtmlChanged"
-  >
+  <MdEditor ref="editorRef" v-model="state.content" showCodeRowNumber autoDetectCode :editorId="state.editorId"
+    :toolbars="state.toolbars" :inputBoxWitdh="state.inputBoxWitdh" :footers="state.footers" :mdHeadingId="mdHeadingId"
+    @onUploadImg="onUploadImg" @onSave="onSave" @onChange="onChange" @onHtmlChanged="onHtmlChanged">
     <template #defToolbars>
       <Mark />
       <Emoji />
-      <ExportPDF
-        :modelValue="state.content"
-        height="500px"
-        @onSuccess="onSuccess"
-        @onProgress="onProgress"
-      />
+      <ExportPDF :modelValue="state.content" height="500px" @onSuccess="onSuccess" @onProgress="onProgress" />
     </template>
     <template #defFooters>
       <Form :data="props.data" :html="state.html" :content="state.content" />
       <TimeNow />
     </template>
   </MdEditor>
-  <!-- <MdPreview :editorId="state.editorId" v-model="state.text" /> -->
-  <!-- <MdCatalog :editorId="state.editorId" /> -->
 </template>
 <script lang="ts">
 /** markdown编辑器 */
@@ -62,13 +43,13 @@ const props = defineProps({
     type: Object,
     default: () => {
       return {
-        id: null,
+        id: "",
         title: "",
         summary: "",
         content: "",
-        cateId: "",
-        tagId: "",
-        top: "",
+        cateId: "", // 默认值与类型保持一致
+        tagId: "", // 默认值与类型保持一致
+        top: "", // 默认值与类型保持一致
         cover: [],
         cateInfo: [],
         tagInfo: [],
@@ -170,5 +151,5 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-@import "@/styles/md-editor.min";
+@import "@/styles/md-editor";
 </style>

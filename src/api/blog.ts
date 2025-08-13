@@ -1,5 +1,5 @@
 import request from "../utils/request";
-import type { Article, getArticle, getComment, createComment, delComment } from "./blogType.d.ts";
+import type { Article, getArticle, getComment, replyComment, delComment, careaComment } from "./blogType.d.ts";
 
 /**
  * 删除评论
@@ -15,7 +15,7 @@ export function delComment(params: delComment) {
  * @param params 新增评论所需参数
  * @returns
  */
-export function addComment(params: createComment) {
+export function addComment(params: replyComment | careaComment) {
   return request("POST", "/api/comment/add", params);
 }
 

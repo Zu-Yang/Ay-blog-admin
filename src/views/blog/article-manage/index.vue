@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-space :size="8">
-      <a-popconfirm title="Are you sure delete this article?" :showCancel="false" ok-text="Yes" cancel-text="No"
-        @confirm="batchDelete" @cancel="">
+    <a-space :size="8" style="margin-bottom: 14px;">
+      <a-popconfirm :open="hasSelected" title="Are you sure delete this article?" :showCancel="false" ok-text="Yes"
+        cancel-text="No" @confirm="batchDelete" @cancel="">
         <a-button type="primary" danger :disabled="!hasSelected" :loading="selectState.loading">
           批量删除
           <span v-if="hasSelected">
@@ -10,9 +10,7 @@
           </span>
         </a-button>
       </a-popconfirm>
-      <a-button type="primary" @click="handleCreate">
-        新增文章
-      </a-button>
+      <a-button type="primary" @click="handleCreate"> 新增文章 </a-button>
       <!-- <a-input addon-before="评论区LIMIT" :maxlength="3" v-model:value="stateComment.limit" placeholder="搜索数量" /> -->
     </a-space>
     <a-table :row-selection="{
@@ -35,7 +33,7 @@
         <div>
           <div :style="{ textAlign: 'center' }">
             <a-button @click="record.showCommentBox = !record.showCommentBox">
-              {{ record.showCommentBox ? '取消评论' : '评论一下' }}
+              {{ record.showCommentBox ? "取消评论" : "评论一下" }}
             </a-button>
           </div>
           <div v-if="record.showCommentBox" class="reply-textarea">
@@ -63,14 +61,16 @@
                   <img :src="item.user_avatar" />
                 </template>
                 <template #author>
-                  <a :href="item.visitor_info.user_jump_url" target="_blank">{{ item.visitor_info.nick_name }}</a>
+                  <a :href="item.visitor_info.user_jump_url" target="_blank">{{
+                    item.visitor_info.nick_name
+                  }}</a>
                 </template>
                 <template #actions>
                   <a-button class="flex items-center" size="small" type="link" @click="clickReply(item)">
                     <template #icon>
                       <EditOutlined />
                     </template>
-                    {{ item.showReply ? `取消回复` : '回复' }}
+                    {{ item.showReply ? `取消回复` : "回复" }}
                   </a-button>
                   <a-popconfirm :showCancel="false" title="确定删除此评论?" ok-text="Yes" cancel-text="No"
                     @confirm="handleDeleteComment(record.id, item, record.commentList)" @cancel="">
@@ -83,19 +83,22 @@
                   </a-popconfirm>
                 </template>
                 <template #content>
-                  <div class="inline"
-                    v-html="item.isExpand ? contentHandler(item.content, true) : item.processedContent">
-                  </div>
+                  <div class="inline" v-html="item.isExpand
+                    ? contentHandler(item.content, true)
+                    : item.processedContent
+                    "></div>
                   <a class="ml-2 inline-flex items-center" v-if="item.showExpand"
                     @click="item.isExpand = !item.isExpand">
                     <DownOutlined class="mr-1" v-if="!item.isExpand" />
                     <UpOutlined class="mr-1" v-if="item.isExpand" />
-                    {{ item.isExpand ? '收起' : `展开` }}
+                    {{ item.isExpand ? "收起" : `展开` }}
                   </a>
                 </template>
                 <template #datetime>
                   <a-tooltip :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">
-                    <span :key="item.datetime.fromNow()">{{ item.datetime.fromNow() }}</span>
+                    <span :key="item.datetime.fromNow()">{{
+                      item.datetime.fromNow()
+                    }}</span>
                   </a-tooltip>
                 </template>
                 <!-- 回复框 -->
@@ -130,7 +133,12 @@
                               {{ item.visitor_info.nick_name }}
                             </a>
                             <CaretRightFilled />
-                            <span v-if="!findNickName(item.reply_id, record.commentList[index].replys)">
+                            <span v-if="
+                              !findNickName(
+                                item.reply_id,
+                                record.commentList[index].replys
+                              )
+                            ">
                               评论已被删除
                             </span>
                             <a v-else :href="item.reply_info.user_jump_url" target="_blank">
@@ -143,11 +151,15 @@
                             <template #icon>
                               <EditOutlined />
                             </template>
-                            {{ item.showReply ? `取消回复` : '回复' }}
+                            {{ item.showReply ? `取消回复` : "回复" }}
                           </a-button>
-                          <a-popconfirm :showCancel="false" title="确定删除此评论?" ok-text="Yes" cancel-text="No"
-                            @confirm="handleDeleteComment(record.id, item, record.commentList[index].replys)"
-                            @cancel="">
+                          <a-popconfirm :showCancel="false" title="确定删除此评论?" ok-text="Yes" cancel-text="No" @confirm="
+                            handleDeleteComment(
+                              record.id,
+                              item,
+                              record.commentList[index].replys
+                            )
+                            " @cancel="">
                             <a-button class="flex items-center" size="small" type="link" danger>
                               <template #icon>
                                 <DeleteOutlined />
@@ -157,19 +169,22 @@
                           </a-popconfirm>
                         </template>
                         <template #content>
-                          <div class="inline"
-                            v-html="item.isExpand ? contentHandler(item.content, true) : item.processedContent">
-                          </div>
+                          <div class="inline" v-html="item.isExpand
+                            ? contentHandler(item.content, true)
+                            : item.processedContent
+                            "></div>
                           <a class="ml-2 inline-flex items-center" v-if="item.showExpand"
                             @click="item.isExpand = !item.isExpand">
                             <DownOutlined class="mr-1" v-if="!item.isExpand" />
                             <UpOutlined class="mr-1" v-if="item.isExpand" />
-                            {{ item.isExpand ? '收起' : `展开` }}
+                            {{ item.isExpand ? "收起" : `展开` }}
                           </a>
                         </template>
                         <template #datetime>
                           <a-tooltip :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">
-                            <span :key="item.datetime.fromNow()">{{ item.datetime.fromNow() }}</span>
+                            <span :key="item.datetime.fromNow()">{{
+                              item.datetime.fromNow()
+                            }}</span>
                           </a-tooltip>
                           <span v-if="item.user_email == authorEmail" class="pl-2">作者回复</span>
                         </template>
@@ -183,8 +198,9 @@
                                   :maxlength="500" />
                               </a-form-item>
                               <a-form-item>
-                                <a-button html-type="submit" :loading="submitting" type="primary"
-                                  @click="handleReply(item, record.commentList[index].replys)">
+                                <a-button html-type="submit" :loading="submitting" type="primary" @click="
+                                  handleReply(item, record.commentList[index].replys)
+                                  ">
                                   发送评论
                                 </a-button>
                               </a-form-item>
@@ -200,14 +216,20 @@
                   @click="item.isExpandReply = !item.isExpandReply">
                   <DownOutlined class="mr-1" v-if="!item.isExpandReply" />
                   <UpOutlined class="mr-1" v-if="item.isExpandReply" />
-                  {{ item.isExpandReply ? '收起回复' : `${item.replys.length}条回复` }}
+                  {{ item.isExpandReply ? "收起回复" : `${item.replys.length}条回复` }}
                 </a>
               </a-comment>
             </a-list-item>
           </template>
           <template #loadMore>
-            <div v-if="Math.ceil(record.oneLevelCount / stateComment.limit) > record.commentPage"
-              :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
+            <div v-if="
+              Math.ceil(record.oneLevelCount / stateComment.limit) > record.commentPage
+            " :style="{
+              textAlign: 'center',
+              marginTop: '12px',
+              height: '32px',
+              lineHeight: '32px',
+            }">
               <a-button :loading="loadMore" @click="handleMore(record)">
                 加载更多
               </a-button>
@@ -253,7 +275,10 @@
           <template v-for="(fragment, i) in text
             .toString()
             .split(
-              new RegExp(`(?<=${searchState.searchText})|(?=${searchState.searchText})`, 'i')
+              new RegExp(
+                `(?<=${searchState.searchText})|(?=${searchState.searchText})`,
+                'i'
+              )
             )">
             <mark v-if="fragment.toLowerCase() === searchState.searchText.toLowerCase()" :key="i" class="highlight">
               {{ fragment }}
@@ -366,24 +391,38 @@ import {
   DownOutlined,
   UpOutlined,
   EditOutlined,
-  CaretRightFilled
+  CaretRightFilled,
 } from "@ant-design/icons-vue";
-import { getArticles, getCate, getTag, deleteArticle, getComment, delComment, addComment, getLocal } from "@/api/blog";
-import type { getArticle, TableDataType, replyComment, careaComment } from "@/api/blogType";
+import {
+  getArticles,
+  getCate,
+  getTag,
+  deleteArticle,
+  getComment,
+  delComment,
+  addComment,
+  getLocal,
+} from "@/api/blog";
+import type {
+  getArticle,
+  TableDataType,
+  replyComment,
+  careaComment,
+} from "@/api/blogType";
 import { MdCatalog, MdPreview } from "md-editor-v3";
 import { MarkdownEditor } from "@/components/MdEditor";
 import { useArticle } from "@/store/Article";
 import { message } from "@/utils/message";
 import { contentHandler, useDecodeEmoji, useEncodeEmoji } from "@/utils/comment";
 import { v4 } from "uuid";
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { getIP } from "@/utils/ip";
 
 const store = useArticle();
 
-const authorEmail = "3108521253@qq.com"
+const authorEmail = "3108521253@qq.com";
 const editorId = ref<string>("md-editor");
 const showPreview = ref<boolean>(false);
 const statePreview = reactive({
@@ -393,13 +432,13 @@ const statePreview = reactive({
   content: "",
 });
 const stateEdit = reactive({
-  id: null,
+  id: "",
   title: "",
   summary: "",
   content: "",
-  cateId: "",
-  tagId: "",
-  top: "",
+  cateId: "", // 默认值与类型保持一致
+  tagId: "", // 默认值与类型保持一致
+  top: "", // 默认值与类型保持一致
   cover: [],
   cateInfo: [],
   tagInfo: [],
@@ -407,16 +446,16 @@ const stateEdit = reactive({
 const stateComment = reactive({
   page: 1,
   limit: 10,
-  biz_type: 'article', // 业务类型
+  biz_type: "article", // 业务类型
   biz_id: null, // 业务类型的id
-})
+});
 const stateUserInfo = reactive({
   ip: "",
   email: "1656053797@qq.com",
   avatar: "",
   nick_name: "作者",
   jump_url: "https://baidu.com/",
-})
+});
 const loading = ref(false);
 const loadMore = ref(false);
 const submitting = ref(false);
@@ -436,7 +475,7 @@ const columns: TableColumnType<TableDataType>[] = [
     ellipsis: true,
     sorter: {
       compare: (a, b) => a.like - b.like,
-      multiple: 0, // 排序权重 
+      multiple: 0, // 排序权重
     },
   },
   {
@@ -462,7 +501,7 @@ const columns: TableColumnType<TableDataType>[] = [
       return false;
     },
     // 点击筛选按钮时触发
-    onFilterDropdownOpenChange: (visible) => {
+    onFilterDropdownOpenChange: visible => {
       if (visible) {
         setTimeout(() => {
           searchInput.value.focus();
@@ -567,29 +606,33 @@ const columns: TableColumnType<TableDataType>[] = [
 /**
  * 热更新被修改的`article`数据
  */
-watchEffect(() => {
-  if (Object.keys(store.modifiedData).length !== 0) {
-    if (store.modalType === "edit") {
-      // acc: 累加器，初始值为空数组
-      // item: 当前遍历的数组元素
-      // index: 当前元素的索引
-      dataSource.reduce((acc: any, item: TableDataType, index: number) => {
-        if (item.id === store.modifiedData.id) {
-          Object.assign(dataSource[index], store.modifiedData);
-          // 清空store.modifiedData，以便下次修改
-          store.$patch({ modalType: "", modifiedData: {} });
-          return;
-        }
-        // 返回累加器，继续下一次迭代
-        return acc;
-      }, []); // 初始值为空数组
-    }
-    if (store.modalType === "create") {
-      dataSource.unshift(store.modifiedData);
+watch(
+  () => store.modifiedData,
+  (newVal, oldVal) => {
+    if (Object.keys(store.modifiedData).length !== 0) {
+      if (store.modalType === "edit") {
+        // acc: 累加器，初始值为空数组
+        // item: 当前遍历的数组元素
+        // index: 当前元素的索引
+        dataSource.reduce((acc: any, item: TableDataType, index: number) => {
+          if (item.id === store.modifiedData.id) {
+            Object.assign(dataSource[index], store.modifiedData);
+            return;
+          }
+          return acc; // 返回累加器，继续下一次迭代
+        }, []);
+      }
+      if (store.modalType === "create") {
+        dataSource.splice(0, 0, store.modifiedData);
+        pagination.total += 1;
+      }
       store.$patch({ modalType: "", modifiedData: {} });
     }
-  };
-})
+  },
+  {
+    deep: true
+  }
+);
 
 type Key = number;
 
@@ -606,13 +649,19 @@ const hasSelected = computed(() => selectState.selectedRowKeys.length > 0);
  * @param commentList 当前评论列表
  * @returns Promise<void>
  */
-const handleDeleteComment = async (id: number, comment: any, commentList: any[]): Promise<void> => {
+const handleDeleteComment = async (
+  id: number,
+  comment: any,
+  commentList: any[]
+): Promise<void> => {
   try {
     const { comment_id, parent_id, biz_id, biz_type } = comment;
     const result = await delComment({ comment_id, parent_id, biz_id, biz_type });
 
     if (result.code === 200) {
-      const index: number = commentList.findIndex((item: any) => item.comment_id === comment_id)
+      const index: number = commentList.findIndex(
+        (item: any) => item.comment_id === comment_id
+      );
       commentList.splice(index, 1);
       message.success("删除成功");
     }
@@ -620,16 +669,13 @@ const handleDeleteComment = async (id: number, comment: any, commentList: any[])
     console.error("删除评论时发生错误:", error);
     message.error("删除评论时发生错误");
   }
-}
+};
 
 /**
  * textarea `@change`事件
  * @param content 评论内容
  */
-const handleChange = () => {
-
-
-}
+const handleChange = () => { };
 
 /**
  * 点击回复按钮逻辑
@@ -637,14 +683,16 @@ const handleChange = () => {
  */
 const clickReply = async (comment: any) => {
   const { id, showReply } = comment;
-  comment.showReply = !showReply
+  comment.showReply = !showReply;
   nextTick(() => {
-    const textarea = document.querySelector(`#reply_textarea_${id}`) as HTMLTextAreaElement;
+    const textarea = document.querySelector(
+      `#reply_textarea_${id}`
+    ) as HTMLTextAreaElement;
     if (textarea) textarea.focus();
-  })
-}
+  });
+};
 
-/** 
+/**
  * 点击评论按钮
  */
 const handleComment = async (record: any) => {
@@ -662,8 +710,7 @@ const handleComment = async (record: any) => {
     user_email: stateUserInfo.email,
     comment_id: v4(),
     content: useEncodeEmoji(record.commentContent),
-    user_ip: stateUserInfo.ip,
-  }
+  };
 
   try {
     const result = await addComment(params);
@@ -678,14 +725,28 @@ const handleComment = async (record: any) => {
     console.error("发送评论时发生错误:", error);
     message.error("发送评论时发生错误");
   }
-}
+};
 
 /**
  * 发送回复评论
  * @param comment 评论数据
  */
 const handleReply = async (comment: any, replyList: any[]) => {
-  const { biz_id, biz_type, comment_id, reply_id, user_ip, user_avatar, parent_id, id, jump_url, nick_name, replyContent, user_email, reply_ip } = comment;
+  const {
+    biz_id,
+    biz_type,
+    comment_id,
+    reply_id,
+    user_ip,
+    user_avatar,
+    parent_id,
+    id,
+    jump_url,
+    nick_name,
+    replyContent,
+    user_email,
+    reply_ip,
+  } = comment;
 
   if (!replyContent) return message.warning("请输入评论内容");
 
@@ -702,7 +763,7 @@ const handleReply = async (comment: any, replyList: any[]) => {
     parent_id: parent_id ? parent_id : comment_id,
     content: useEncodeEmoji(replyContent),
     reply_ip: user_ip,
-  }
+  };
 
   try {
     const result = await addComment(params);
@@ -711,7 +772,7 @@ const handleReply = async (comment: any, replyList: any[]) => {
 
       if (parent_id && reply_id) {
         // 二级回复
-        const index = replyList.findIndex((item: any) => item.id === id)
+        const index = replyList.findIndex((item: any) => item.id === id);
         replyList.splice(index + 1, 0, ...newComment);
       } else {
         // 一级回复
@@ -726,7 +787,7 @@ const handleReply = async (comment: any, replyList: any[]) => {
     console.error("发送评论时发生错误:", error);
     message.error("发送评论时发生错误");
   }
-}
+};
 
 const findNickName = (replyId: string, replyList: any) => {
   let flag = false;
@@ -741,12 +802,12 @@ const findNickName = (replyId: string, replyList: any) => {
       break; // 必须找到之后退出循环
     }
   }
-  return flag
-}
+  return flag;
+};
 
 /**
  * 内容处理逻辑
-*/
+ */
 const commentMap = (data: Array<any>) => {
   return data.map((item: any) => {
     if (item.replys && item.replys.length > 0) {
@@ -758,10 +819,10 @@ const commentMap = (data: Array<any>) => {
       isExpand: false, // 是否展开评论内容
       showReply: false, // 是否显示回复框
       replyContent: "", // 回复内容
-      showExpandReply: item.replys && item.replys.length > 0 || false, // 是否显示"展开回复按钮"
+      showExpandReply: (item.replys && item.replys.length > 0) || false, // 是否显示"展开回复按钮"
       showExpand: useDecodeEmoji(item.content).length > 200 || false, // 是否显示"展开按钮" 转义后再判断长度
       processedContent: contentHandler(item.content), // 内容处理
-      datetime: dayjs(item.created_at).subtract(0, 'days'), // 时间处理
+      datetime: dayjs(item.created_at).subtract(0, "days"), // 时间处理
     };
   });
 };
@@ -776,18 +837,18 @@ const handleMore = async (record: TableDataType) => {
     limit: stateComment.limit,
     biz_type: stateComment.biz_type,
     biz_id: record.id,
-  }
+  };
   const result: any = await getComment(params);
   setTimeout(() => {
     if (result.code === 200) {
       record.oneLevelCount = result.oneLevelCount;
       record.commentPage = result.page;
-      const temp = commentMap(result.data)
+      const temp = commentMap(result.data);
       record.commentList.push(...temp);
     }
     loadMore.value = false;
-  }, 200)
-}
+  }, 200);
+};
 
 /**
  * 展开评论
@@ -800,17 +861,17 @@ const handleExpand = async (expanded: boolean, record: TableDataType) => {
       limit: stateComment.limit,
       biz_type: stateComment.biz_type,
       biz_id: record.id,
-    }
+    };
     const result: any = await getComment(params);
     if (result.code === 200) {
       record.oneLevelCount = result.oneLevelCount;
       record.commentPage = result.page;
-      const temp = commentMap(result.data)
+      const temp = commentMap(result.data);
       record.commentList.push(...temp);
     }
     loading.value = false;
   }
-}
+};
 
 /**
  * 初始化modal样式
@@ -823,7 +884,6 @@ const initMdPreview = () => {
     else isMdPreviewCatalog.value = false;
   });
 };
-
 
 /**
  * 预览文章
@@ -847,6 +907,7 @@ const handlePreview = (record: TableDataType) => {
  */
 const handleEdit = (record: TableDataType) => {
   editorId.value = `md-edit-${record.id}`;
+
   Object.assign(stateEdit, {
     id: record.id,
     content: useDecodeEmoji(record.content),
@@ -857,6 +918,7 @@ const handleEdit = (record: TableDataType) => {
     tagId: record.tagId,
     cover: record.cover,
   });
+
   store.$patch({ showEdit: true, modalType: "edit" });
 };
 
@@ -867,16 +929,19 @@ const handleEdit = (record: TableDataType) => {
 const handleDelete = async (id: number) => {
   try {
     loading.value = true;
-    await deleteArticle(id).then((res) => {
+    await deleteArticle(id).then(res => {
       if (res.code === 200) {
-        dataSource.splice(dataSource.findIndex((item: any) => item.id === id), 1);
+        dataSource.splice(
+          dataSource.findIndex((item: any) => item.id === id),
+          1
+        );
         message.success("删除成功");
         loading.value = false;
       } else {
         message.error(res.msg);
         loading.value = false;
       }
-    })
+    });
   } catch (error) {
     message.error("删除失败");
   }
@@ -887,12 +952,12 @@ const handleDelete = async (id: number) => {
  */
 const batchDelete = async () => {
   selectState.loading = true;
-  await new Promise((resolve) => {
-    selectState.selectedRowKeys.forEach((id) => {
+  await new Promise(resolve => {
+    selectState.selectedRowKeys.forEach(id => {
       handleDelete(id);
-    })
+    });
     resolve(true);
-  })
+  });
   selectState.loading = false;
   selectState.selectedRowKeys.length = 0;
 };
@@ -901,9 +966,18 @@ const batchDelete = async () => {
  * 创建文章
  */
 const handleCreate = () => {
+  Object.assign(stateEdit, {
+    id: null,
+    title: "",
+    summary: "",
+    content: "",
+    cateId: null, // 默认值与类型保持一致
+    tagId: null, // 默认值与类型保持一致
+    top: null, // 默认值与类型保持一致
+    cover: "",
+  });
   store.$patch({ showEdit: true, modalType: "create" });
 };
-
 
 /**
  * checkBox变化触发
@@ -989,7 +1063,7 @@ const getTaglist = async () => {
  */
 const getArticlesList = async (params: getArticle) => {
   loading.value = true;
-  await getArticles(params).then((res) => {
+  await getArticles(params).then(res => {
     if (res.code === 200) {
       const data = res.data;
       dataSource.length = 0;
@@ -1009,7 +1083,7 @@ const getArticlesList = async (params: getArticle) => {
         cateId: item.category.category_id,
         tag: item.tag.tag_name,
         tagId: item.tag.tag_id,
-        cover: item.article_cover,
+        cover: item.article_cover ? JSON.parse(item.article_cover) : [],
         showCoverProview: false, // 是否显示封面图
         coverError: false, // 封面图加载错误
         commentList: [], // 评论列表
@@ -1035,7 +1109,7 @@ onMounted(async () => {
   await getArticlesList({ page: 1, limit: 12, orderBy: "" });
   await getCatelist();
   await getTaglist();
-  getIP(async (ip) => {
+  getIP(async ip => {
     stateUserInfo.ip = ip;
     // await getLocal(ip);
   });
@@ -1043,7 +1117,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import "@/styles/md-editor.min";
+@import "@/styles/md-editor";
 
 .ant-modal-mask {
   backdrop-filter: blur(8px);
