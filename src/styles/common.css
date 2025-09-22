@@ -45,7 +45,8 @@ div:focus {
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -137,4 +138,4 @@ div:focus {
 
 .ellipsis-3 {
   -webkit-line-clamp: 3;
-}
+}/*# sourceMappingURL=common.css.map */

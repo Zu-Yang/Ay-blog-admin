@@ -439,7 +439,7 @@ const stateEdit = reactive({
   cateId: "", // 默认值与类型保持一致
   tagId: "", // 默认值与类型保持一致
   top: "", // 默认值与类型保持一致
-  cover: [],
+  cover: "",
   cateInfo: [],
   tagInfo: [],
 });
@@ -1083,7 +1083,7 @@ const getArticlesList = async (params: getArticle) => {
         cateId: item.category.category_id,
         tag: item.tag.tag_name,
         tagId: item.tag.tag_id,
-        cover: item.article_cover ? JSON.parse(item.article_cover) : [],
+        cover: item.article_cover,
         showCoverProview: false, // 是否显示封面图
         coverError: false, // 封面图加载错误
         commentList: [], // 评论列表

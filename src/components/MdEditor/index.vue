@@ -50,7 +50,7 @@ const props = defineProps({
         cateId: "", // 默认值与类型保持一致
         tagId: "", // 默认值与类型保持一致
         top: "", // 默认值与类型保持一致
-        cover: [],
+        cover: "",
         cateInfo: [],
         tagInfo: [],
       };

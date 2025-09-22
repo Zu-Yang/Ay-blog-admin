@@ -83,7 +83,7 @@ export interface Article {
   /** 内容 */
   article_content: string
   /** 图片 */
-  article_cover: string
+  article_cover: string[]
   /** 摘要 */
   article_summary: string
   /** 置顶 */

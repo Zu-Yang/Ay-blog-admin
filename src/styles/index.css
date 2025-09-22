@@ -1,0 +1,390 @@
+@charset "UTF-8";
+:root {
+  --blue: #1890FF;
+  --yellow: #fdd835;
+  --green: #4caf50;
+  --red: #f44336;
+  --gray: #5d5d5d;
+  --orange: #d46b08;
+  --purple: #531dab;
+  --cyan: #08979c;
+  --light-green: #42b983;
+  --border-radius: 2px;
+  --text-shadow-bg: rgb(51, 51, 51);
+  --text-shadow-color: rgb(255, 222, 23);
+  --transition: .3s all;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a, a:visited, a:focus, a:hover, a:link, a:active {
+  outline: none;
+}
+
+button, input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+ul, li, ol {
+  list-style: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.302);
+}
+
+/* flex布局 */
+.flex {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.f-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.f1 {
+  flex: 1;
+}
+
+.f2 {
+  flex: 2;
+}
+
+.f3 {
+  flex: 3;
+}
+
+/* 垂直居中 */
+.f-vertical {
+  display: flex;
+  align-items: center;
+}
+
+/* 水平居中 */
+.f-center {
+  display: flex;
+  justify-content: center;
+}
+
+/* 水平 + 垂直居中 */
+.fvc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 右对齐 */
+.f-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 两端对齐 */
+.f-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 靠底部对齐 */
+.f-bottom {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* 溢出...显示 当前节点生效 */
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ellipsis-1, .ellipsis-2, .ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 溢出...显示 子节点生效 */
+.ellipsis-1 {
+  -webkit-line-clamp: 1;
+}
+
+.ellipsis-2 {
+  -webkit-line-clamp: 2;
+}
+
+.ellipsis-3 {
+  -webkit-line-clamp: 3;
+}
+
+[ripple] {
+  position: relative;
+  overflow: hidden;
+}
+
+[ripple] .ripple {
+  position: absolute;
+  border-radius: 100%;
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.page-x-enter-active, .page-x-leave-active {
+  transition: 0.4s all;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.page-x-enter-from {
+  opacity: 0;
+  transform: translate3d(30px, 0 0);
+}
+
+.page-x-leave-to {
+  opacity: 0;
+  transform: translate3d(-30px, 0, 0);
+}
+
+.page-y-enter-active, .page-y-leave-active {
+  transition: 0.4s all;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.page-y-enter-from {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+}
+
+.page-y-leave-to {
+  opacity: 0;
+  transform: translate3d(0, -30px, 0);
+}
+
+.breadcrumb-enter-active, .breadcrumb-leave-active {
+  transition: 0.4s all;
+}
+
+.breadcrumb-enter-from, .breadcrumb-leave-to {
+  opacity: 0;
+  transform: translate3d(20px, 0, 0);
+}
+
+.breadcrumb-leave-to {
+  position: absolute;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: var(--transition);
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.the-input {
+  width: 100%;
+  border: 1px solid #DCDFE6;
+  border-radius: var(--border-radius);
+  color: #1f2d3d;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  padding: 0 15px;
+  outline: none;
+  transition: 0.2s all;
+}
+.the-input:focus {
+  border-color: var(--blue);
+}
+
+.the-btn {
+  font-size: 14px;
+  padding: 0px 15px;
+  min-width: 88px;
+  height: 36px;
+  line-height: 1;
+  border-radius: var(--border-radius);
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: var(--transition);
+  outline: none;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+.the-btn:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+.the-btn:disabled {
+  cursor: no-drop;
+  opacity: 0.7;
+}
+
+.the-btn + .the-btn {
+  margin-left: 10px;
+}
+
+.the-btn.mini {
+  font-size: 12px;
+  height: 28px;
+  border-radius: var(--border-radius);
+}
+
+.the-btn.blue {
+  background-color: var(--blue);
+  color: #fff;
+}
+
+.the-btn.green {
+  background-color: var(--green);
+  color: #fff;
+}
+
+.the-btn.yellow {
+  background-color: var(--yellow);
+  color: #fff;
+}
+
+.the-btn.red {
+  background-color: var(--red);
+  color: #fff;
+}
+
+.the-tag {
+  display: inline-block;
+  padding: 6px 8px;
+  border-radius: var(--border-radius);
+  line-height: 1;
+  font-size: 14px;
+}
+
+.the-tag + .the-tag {
+  margin-left: 10px;
+}
+
+.the-tag.green {
+  background-color: #e7faf0;
+  color: var(--green);
+}
+.the-tag.green:hover {
+  color: var(--green);
+}
+
+.the-tag.blue {
+  background-color: #e8f3ff;
+  color: var(--blue);
+}
+.the-tag.blue:hover {
+  color: var(--blue);
+}
+
+.the-tag.gray {
+  background-color: #efefef;
+  color: var(--gray);
+}
+.the-tag.gray:hover {
+  color: var(--gray);
+}
+
+.the-tag.red {
+  background-color: #ffeded;
+  color: var(--red);
+}
+.the-tag.red:hover {
+  color: var(--red);
+}
+
+.the-tag.orange {
+  background-color: #fff7e6;
+  color: var(--orange);
+}
+.the-tag.orange:hover {
+  color: var(--orange);
+}
+
+.the-tag.purple {
+  background-color: #f9f0ff;
+  color: var(--purple);
+}
+.the-tag.purple:hover {
+  color: var(--purple);
+}
+
+.the-tag.cyan {
+  background-color: #e6fffb;
+  color: var(--cyan);
+}
+.the-tag.cyan:hover {
+  color: var(--cyan);
+}
+
+.the-title {
+  letter-spacing: 3px;
+  line-height: 24px;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  text-shadow: var(--text-shadow-bg) 1px 1px, var(--text-shadow-bg) 1px -1px, var(--text-shadow-bg) -1px 1px, var(--text-shadow-bg) -1px -1px, var(--text-shadow-bg) 0px 1.4px, var(--text-shadow-bg) 0px -1.4px, var(--text-shadow-bg) -1.4px 0px, var(--text-shadow-bg) 1.4px 0px, var(--text-shadow-color) 2px 2px, var(--text-shadow-color) 3px 3px, var(--text-shadow-color) 3px 1px, var(--text-shadow-color) 1px 3px, var(--text-shadow-color) 1px 1px, var(--text-shadow-color) 2px 3.4px, var(--text-shadow-color) 2px 0.6px, var(--text-shadow-color) 0.6px 2px, var(--text-shadow-color) 3.4px 2px;
+  box-sizing: border-box;
+  font-style: italic;
+}
+.the-title.is-line {
+  display: inline-block;
+  position: relative;
+}
+.the-title.is-line::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #888;
+}/*# sourceMappingURL=index.css.map */
